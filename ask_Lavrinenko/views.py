@@ -1,0 +1,9 @@
+from django.http import HttpResponse
+
+def getPostParamaters(request):
+	response = "It is working. Trust me!"
+	for key, value in request.POST.items():
+		response = response + str(key) + " : " + str(value) + "<br>"
+	for key, value in request.GET.items():
+		response = response + str(key) + " : " + str(value) + "<br>"
+	return HttpResponse(response)

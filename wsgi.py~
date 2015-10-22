@@ -1,0 +1,6 @@
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*- 
+def application(env, start_response):
+	start_response('200', [('Content-Type', 'text')])
+	data = data + 'REQUEST_METHOD : ' + environ['REQUEST_METHOD'] + '\n'	
+	return ["Hello!"]
