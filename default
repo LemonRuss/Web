@@ -1,1 +1,26 @@
-/etc/nginx/sites-available/default
+upstream gunicorn {
+	server 127.0.0.1:8081;
+}
+server {
+error_log /tmp/ngx.err debug;
+        listen 8000;
+        server_name example.com;
+        root /home/carry/Web/Web1/ask_Lavrinenko/;
+	location ^~ /Uploads/ {
+	        gzip on;
+	        gzip_comp_level 5;
+		expires modified 2d;
+	}
+        location / {
+                proxy_pass http://gunicorn; 
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                try_files $uri $uri/ =404;
+        }
+        location ~* ^/(.+\.(jpeg|jpg|css|js|html)) {
+                root /home/carry/Web/Web1/ask_Lavrinenko/Static/;
+        	gzip on;
+		gzip_comp_level 5;
+		expires modified 2d;
+	}
+}
